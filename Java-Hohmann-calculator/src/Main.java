@@ -4,7 +4,9 @@
 public class Main {
     public static void main(String[] args) {
 
-        SpaceObject Sun = new SpaceObject("Sun", 0, 50, Math.PI/2);
+        SpaceObject Earth = new SpaceObject("Earth", 3, 0, Math.PI/2);
+        SpaceObject Mars = new SpaceObject("Mars", 4, 0, 0);
+        System.out.println("Distance between Earth and Mars is " + Math.sqrt(Earth.distanceSquaredTo(Mars)));
 
     }
 }

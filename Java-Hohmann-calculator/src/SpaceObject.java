@@ -2,7 +2,7 @@
 public class SpaceObject {
     private double r = 0;
     private double theta = 0;
-    private double phi = Math.PI;
+    private double phi = 1.5707963267948966;//pi/2
 
     public String Name;
 
@@ -64,6 +64,21 @@ public class SpaceObject {
             return;
         }
         this.phi = phi;
+    }
+
+    //Square of the distance between this object and another
+    public double distanceSquaredTo(SpaceObject otherObject){
+        double thisCosTheta = Math.cos(getTheta());
+        double thisSinTheta = Math.sin(getTheta());
+        double thisCosPhi = Math.cos(getPhi());
+        double thisSinPhi = Math.sin(getPhi());
+        double otherCosTheta = Math.cos(otherObject.getTheta());
+        double otherSinTheta = Math.sin(otherObject.getTheta());
+        double otherCosPhi = Math.cos(otherObject.getPhi());
+        double otherSinPhi = Math.sin(otherObject.getPhi());
+        return getR()*getR() + otherObject.getR()*otherObject.getR() - 2*getR()*otherObject.getR()*(
+                thisCosTheta*thisSinPhi*otherCosTheta*otherSinPhi + thisSinTheta*thisSinPhi*otherSinTheta*otherSinPhi
+                + thisCosPhi*otherCosPhi); //This is basically the 3D cosine rule for the square distance
     }
 
 }
