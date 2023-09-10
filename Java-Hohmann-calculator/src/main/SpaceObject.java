@@ -1,10 +1,12 @@
-
+package main;
 public class SpaceObject {
     private double r = 0;
     private double theta = 0;
     private double phi = 1.5707963267948966;//pi/2
 
     public String Name;
+
+    static final private double G = 6.7E-11;
 
     public SpaceObject(String name, double R, double Theta, double Phi)
     {
@@ -79,6 +81,16 @@ public class SpaceObject {
         return getR()*getR() + otherObject.getR()*otherObject.getR() - 2*getR()*otherObject.getR()*(
                 thisCosTheta*thisSinPhi*otherCosTheta*otherSinPhi + thisSinTheta*thisSinPhi*otherSinTheta*otherSinPhi
                 + thisCosPhi*otherCosPhi); //This is basically the 3D cosine rule for the square distance
+    }
+
+    public java.lang.Double forceBetweenThisAnd(SpaceObject otherObject){
+        double rSquared = distanceSquaredTo(otherObject);
+        if(rSquared < 1E-6)
+            {
+                System.out.println("Attempted to calculate force between " + Name + " and " + otherObject.Name + ", but they were too close.");
+                return null;
+            }
+        return -1.*G*getMass()*otherObject.getMass()/rSquared;
     }
 
 }
