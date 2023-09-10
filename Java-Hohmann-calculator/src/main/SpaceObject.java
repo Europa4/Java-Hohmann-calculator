@@ -1,4 +1,4 @@
-
+package main;
 public class SpaceObject {
     private double r = 0;
     private double theta = 0;
@@ -6,9 +6,11 @@ public class SpaceObject {
 
     public String Name;
 
+    static final private double G = 6.7E-11; //Newton's gravitational constant
+
     public SpaceObject(String name, double R, double Theta, double Phi)
     {
-        Name = name;
+        this.Name = name;
         setR(R);
         setTheta(Theta);
         setPhi(Phi);
@@ -68,10 +70,10 @@ public class SpaceObject {
 
     //Square of the distance between this object and another
     public double distanceSquaredTo(SpaceObject otherObject){
-        double thisCosTheta = Math.cos(getTheta());
-        double thisSinTheta = Math.sin(getTheta());
-        double thisCosPhi = Math.cos(getPhi());
-        double thisSinPhi = Math.sin(getPhi());
+        double thisCosTheta = Math.cos(this.getTheta());
+        double thisSinTheta = Math.sin(this.getTheta());
+        double thisCosPhi = Math.cos(this.getPhi());
+        double thisSinPhi = Math.sin(this.getPhi());
         double otherCosTheta = Math.cos(otherObject.getTheta());
         double otherSinTheta = Math.sin(otherObject.getTheta());
         double otherCosPhi = Math.cos(otherObject.getPhi());
@@ -79,6 +81,16 @@ public class SpaceObject {
         return getR()*getR() + otherObject.getR()*otherObject.getR() - 2*getR()*otherObject.getR()*(
                 thisCosTheta*thisSinPhi*otherCosTheta*otherSinPhi + thisSinTheta*thisSinPhi*otherSinTheta*otherSinPhi
                 + thisCosPhi*otherCosPhi); //This is basically the 3D cosine rule for the square distance
+    }
+
+    public java.lang.Double forceBetweenThisAnd(SpaceObject otherObject){
+        double rSquared = distanceSquaredTo(otherObject);
+        if(rSquared < 1E-6)
+            {
+                System.out.println("Attempted to calculate force between " + Name + " and " + otherObject.Name + ", but they were too close.");
+                return null;
+            }
+        return -1.*G*getMass()*otherObject.getMass()/rSquared;
     }
 
 }
