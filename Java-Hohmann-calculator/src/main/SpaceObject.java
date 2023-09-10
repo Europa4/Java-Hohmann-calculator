@@ -58,7 +58,7 @@ public class SpaceObject {
     }
 
     public void setPhi(double phi) {
-        if( phi < 0 || phi >=  Math.PI)
+        if( phi < 0 || phi >  Math.PI)
         {
             System.out.println("Phi needs to be in the range (0, pi). Value not set for " + Name + ".");
             return;
