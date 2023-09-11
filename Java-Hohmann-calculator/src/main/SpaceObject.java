@@ -6,7 +6,7 @@ public class SpaceObject {
 
     public String Name;
 
-    static final private double G = 6.7E-11; //Newton's gravitational constant
+    static final private double G = 6.7E-11;
 
     public SpaceObject(String name, double R, double Theta, double Phi)
     {
