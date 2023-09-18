@@ -1,12 +1,15 @@
 package main;
-public class SpaceObject {
+abstract public class SpaceObject {
+
+    static final private double G = 6.7E-11;
     private double r = 0;
     private double theta = 0;
     private double phi = 1.5707963267948966;//pi/2
+    private double rVelocity = 0;
+    private double thetaVelocity = 0;
+    private double phiVelocity = 0;
 
     public String Name;
-
-    static final private double G = 6.7E-11;
 
     public SpaceObject(String name, double R, double Theta, double Phi)
     {
@@ -15,6 +18,31 @@ public class SpaceObject {
         setTheta(Theta);
         setPhi(Phi);
     }
+
+    public double getrVelocity() {
+        return rVelocity;
+    }
+
+    public void setrVelocity(double rVelocity) {
+        this.rVelocity = rVelocity;
+    }
+
+    public double getThetaVelocity() {
+        return thetaVelocity;
+    }
+
+    public void setThetaVelocity(double thetaVelocity) {
+        this.thetaVelocity = thetaVelocity;
+    }
+
+    public double getPhiVelocity() {
+        return phiVelocity;
+    }
+
+    public void setPhiVelocity(double phiVelocity) {
+        this.phiVelocity = phiVelocity;
+    }
+
     public double getMass() {
         return mass;
     }
@@ -90,7 +118,9 @@ public class SpaceObject {
                 System.out.println("Attempted to calculate force between " + Name + " and " + otherObject.Name + ", but they were too close.");
                 return null;
             }
-        return -1.*G*getMass()*otherObject.getMass()/rSquared;
+        return -1.*G*this.getMass()*otherObject.getMass()/rSquared;
     }
+
+    abstract public void updatePosition(double deltaT);
 
 }
